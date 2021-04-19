@@ -1,42 +1,34 @@
-import aiohttp
-import json
-import sys
 import asyncio
-from pyrogram.types import (
-    InlineQueryResultArticle,
-    InputTextMessageContent,
-    InlineKeyboardButton,
-    InlineQueryResultPhoto
-)
+import json
+from time import time
+
+import aiohttp
 from googletrans import Translator
-from search_engine_parser import GoogleSearch
 from pykeyboard import InlineKeyboard
-from sys import version as pyver
-from motor import version as mongover
-from pyrogram import __version__ as pyrover
-from time import time, ctime
+from pyrogram.types import (
+    InlineKeyboardButton,
+    InlineQueryResultArticle,
+    InlineQueryResultPhoto,
+    InputTextMessageContent,
+)
+from Python_ARQ import ARQ
+from search_engine_parser import GoogleSearch
+
+from Mizuki import BOT_USERNAME
+from Mizuki.core.types.InlineQueryResult import InlineQueryResultCachedAudio
 from Mizuki.utils.fetch import fetch
 from Mizuki.utils.formatter import convert_seconds_to_minutes as time_convert
 from Mizuki.utils.pastebin import paste
-from Mizuki import (
-    pbot as app, BOT_USERNAME, EVENT_LOGS as LOG_GROUP_ID
-)
-from Mizuki.core.types.InlineQueryResult import InlineQueryResultAudio, InlineQueryResultCachedAudio
-from Python_ARQ import ARQ
+
 ARQ_API = "http://thearq.tech"
 arq = ARQ(ARQ_API)
+
 
 async def inline_help_func(__help__):
     buttons = InlineKeyboard(row_width=2)
     buttons.add(
-        InlineKeyboardButton(
-            'Get More Help?',
-            url=f"t.me/{BOT_USERNAME}?start=help"
-        ),
-        InlineKeyboardButton(
-            "Go Inline!",
-            switch_inline_query_current_chat=""
-        )
+        InlineKeyboardButton("Get More Help?", url=f"t.me/{BOT_USERNAME}?start=help"),
+        InlineKeyboardButton("Go Inline!", switch_inline_query_current_chat=""),
     )
     answerss = [
         InlineQueryResultArticle(
@@ -44,10 +36,11 @@ async def inline_help_func(__help__):
             description="Help Related To Inline Usage.",
             input_message_content=InputTextMessageContent(__help__),
             thumb_url="https://telegra.ph/file/a39e5688b6764c6c29809.jpg",
-            reply_markup=buttons
+            reply_markup=buttons,
         )
     ]
     return answerss
+
 
 async def translate_func(answers, lang, tex):
     i = Translator().translate(tex, dest=lang)
@@ -61,9 +54,9 @@ __**Translated to {lang}**__
 {i.text}"""
     answers.append(
         InlineQueryResultArticle(
-            title=f'Translated to {lang}',
+            title=f"Translated to {lang}",
             description=i.text,
-            input_message_content=InputTextMessageContent(msg)
+            input_message_content=InputTextMessageContent(msg),
         )
     )
     return answers
@@ -87,8 +80,9 @@ async def urban_func(answers, text):
             InlineQueryResultArticle(
                 title=results[i].word,
                 description=results[i].definition,
-                input_message_content=InputTextMessageContent(msg)
-            ))
+                input_message_content=InputTextMessageContent(msg),
+            )
+        )
     return answers
 
 
@@ -107,13 +101,13 @@ async def google_search_func(answers, text):
 
             answers.append(
                 InlineQueryResultArticle(
-                    title=i['titles'],
-                    description=i['descriptions'],
+                    title=i["titles"],
+                    description=i["descriptions"],
                     input_message_content=InputTextMessageContent(
-                        msg,
-                        disable_web_page_preview=True
-                    )
-                ))
+                        msg, disable_web_page_preview=True
+                    ),
+                )
+            )
         except KeyError:
             pass
     return answers
@@ -131,8 +125,9 @@ async def wall_func(answers, text):
                 InlineQueryResultPhoto(
                     photo_url=results[i].url_image,
                     thumb_url=results[i].url_thumb,
-                    caption=f"[Source]({results[i].url_image})"
-                ))
+                    caption=f"[Source]({results[i].url_image})",
+                )
+            )
         except KeyError:
             pass
     return answers
@@ -143,12 +138,7 @@ async def saavn_func(answers, text):
     results = await arq.saavn(text)
     for i in results:
         buttons = InlineKeyboard(row_width=1)
-        buttons.add(
-            InlineKeyboardButton(
-                'Download | Play',
-                url=results[i].media_url
-            )
-        )
+        buttons.add(InlineKeyboardButton("Download | Play", url=results[i].media_url))
         buttons_list.append(buttons)
         duration = await time_convert(results[i].duration)
         caption = f"""
@@ -157,20 +147,22 @@ async def saavn_func(answers, text):
 **Duration:** {duration}
 **Release:** {results[i].year}
 **Singers:** {results[i].singers}"""
-        description = f"{results[i].album} | {duration} " \
+        description = (
+            f"{results[i].album} | {duration} "
             + f"| {results[i].singers} ({results[i].year})"
+        )
         try:
             answers.append(
                 InlineQueryResultArticle(
                     title=results[i].song,
                     input_message_content=InputTextMessageContent(
-                        caption,
-                        disable_web_page_preview=True
+                        caption, disable_web_page_preview=True
                     ),
                     description=description,
                     thumb_url=results[i].image,
-                    reply_markup=buttons_list[i]
-                ))
+                    reply_markup=buttons_list[i],
+                )
+            )
         except (KeyError, ValueError):
             pass
     return answers
@@ -181,12 +173,7 @@ async def deezer_func(answers, text):
     results = await arq.deezer(text, 5)
     for i in results:
         buttons = InlineKeyboard(row_width=1)
-        buttons.add(
-            InlineKeyboardButton(
-                'Download | Play',
-                url=results[i].url
-            )
-        )
+        buttons.add(InlineKeyboardButton("Download | Play", url=results[i].url))
         buttons_list.append(buttons)
         duration = await time_convert(results[i].duration)
         caption = f"""
@@ -202,11 +189,11 @@ async def deezer_func(answers, text):
                     thumb_url=results[i].thumbnail,
                     description=description,
                     input_message_content=InputTextMessageContent(
-                        caption,
-                        disable_web_page_preview=True
+                        caption, disable_web_page_preview=True
                     ),
-                    reply_markup=buttons_list[i]
-                ))
+                    reply_markup=buttons_list[i],
+                )
+            )
         except (KeyError, ValueError):
             pass
     return answers
@@ -220,8 +207,8 @@ async def webss(url):
     end_time = time()
     a = []
     pic = InlineQueryResultPhoto(
-        photo_url=screenshot['url'],
-        caption=(f"`{url}`\n__Took {round(end_time - start_time)} Seconds.__")
+        photo_url=screenshot["url"],
+        caption=(f"`{url}`\n__Took {round(end_time - start_time)} Seconds.__"),
     )
     a.append(pic)
     return a
@@ -233,22 +220,23 @@ async def shortify(url):
         return
     header = {
         "Authorization": "Bearer ad39983fa42d0b19e4534f33671629a4940298dc",
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
     }
-    payload = {
-        "long_url": f"{url}"
-    }
+    payload = {"long_url": f"{url}"}
     payload = json.dumps(payload)
     async with aiohttp.ClientSession() as session:
-        async with session.post("https://api-ssl.bitly.com/v4/shorten", headers=header, data=payload) as resp:
+        async with session.post(
+            "https://api-ssl.bitly.com/v4/shorten", headers=header, data=payload
+        ) as resp:
             data = await resp.json()
     msg = f"**Original Url:** {url}\n**Shortened Url:** {data['link']}"
     a = []
     b = InlineQueryResultArticle(
         title="Link Shortened!",
-        description=data['link'],
+        description=data["link"],
         input_message_content=InputTextMessageContent(
-            msg, disable_web_page_preview=True)
+            msg, disable_web_page_preview=True
+        ),
     )
     a.append(b)
     return a
@@ -281,9 +269,8 @@ async def torrent_func(answers, text):
                     title=title,
                     description=description,
                     input_message_content=InputTextMessageContent(
-                        caption,
-                        disable_web_page_preview=True
-                    )
+                        caption, disable_web_page_preview=True
+                    ),
                 )
             )
             limit += 1
@@ -301,12 +288,7 @@ async def youtube_func(answers, text):
         limit += 1
         buttons = InlineKeyboard(row_width=1)
         video_url = f"https://youtube.com{results[i].url_suffix}"
-        buttons.add(
-            InlineKeyboardButton(
-                'Watch',
-                url=video_url
-            )
-        )
+        buttons.add(InlineKeyboardButton("Watch", url=video_url))
         caption = f"""
 **Title:** {results[i].title}
 **Views:** {results[i].views}
@@ -314,8 +296,10 @@ async def youtube_func(answers, text):
 **Duration:** {results[i].duration}
 **Uploaded:** {results[i].publish_time}
 **Description:** {results[i].long_desc}"""
-        description = f"{results[i].views} | {results[i].channel} | " \
+        description = (
+            f"{results[i].views} | {results[i].channel} | "
             + f"{results[i].duration} | {results[i].publish_time}"
+        )
         try:
             answers.append(
                 InlineQueryResultArticle(
@@ -323,11 +307,11 @@ async def youtube_func(answers, text):
                     thumb_url=results[i].thumbnails[0],
                     description=description,
                     input_message_content=InputTextMessageContent(
-                        caption,
-                        disable_web_page_preview=True
+                        caption, disable_web_page_preview=True
                     ),
-                    reply_markup=buttons
-                ))
+                    reply_markup=buttons,
+                )
+            )
         except (KeyError, ValueError):
             pass
     return answers
@@ -349,8 +333,9 @@ async def lyrics_func(answers, text):
         InlineQueryResultArticle(
             title=song_name,
             description=artist,
-            input_message_content=InputTextMessageContent(msg)
-        ))
+            input_message_content=InputTextMessageContent(msg),
+        )
+    )
     return answers
 
 
@@ -358,10 +343,9 @@ async def github_user_func(answers, text):
     URL = f"https://api.github.com/users/{text}"
     result = await fetch(URL)
     buttons = InlineKeyboard(row_width=1)
-    buttons.add(InlineKeyboardButton(
-        text="Open On Github",
-        url=f"https://github.com/{text}"
-    ))
+    buttons.add(
+        InlineKeyboardButton(text="Open On Github", url=f"https://github.com/{text}")
+    )
     caption = f"""
 **Info Of {result['name']}**
 **Username:** `{text}`
@@ -376,10 +360,9 @@ async def github_user_func(answers, text):
 **Following:** `{result['following']}`"""
     answers.append(
         InlineQueryResultPhoto(
-            photo_url=result['avatar_url'],
-            caption=caption,
-            reply_markup=buttons
-        ))
+            photo_url=result["avatar_url"], caption=caption, reply_markup=buttons
+        )
+    )
     return answers
 
 
@@ -391,13 +374,10 @@ async def github_repo_func(answers, text):
     r1 = results[1]
     commits = 0
     for developer in r1:
-        commits += developer['contributions']
+        commits += developer["contributions"]
     buttons = InlineKeyboard(row_width=1)
     buttons.add(
-        InlineKeyboardButton(
-            'Open On Github',
-            url=f"https://github.com/{text}"
-        )
+        InlineKeyboardButton("Open On Github", url=f"https://github.com/{text}")
     )
     caption = f"""
 **Info Of {r['full_name']}**
@@ -419,10 +399,10 @@ async def github_repo_func(answers, text):
             description=text,
             reply_markup=buttons,
             input_message_content=InputTextMessageContent(
-                caption,
-                disable_web_page_preview=True
-            )
-        ))
+                caption, disable_web_page_preview=True
+            ),
+        )
+    )
     return answers
 
 
