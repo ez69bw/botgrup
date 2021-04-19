@@ -16,18 +16,18 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from typing import Optional, List, Union
+from typing import List, Optional
+
 import pyrogram
 from pyrogram import raw, types, utils
 from pyrogram.file_id import FileType
-from pyrogram.parser import Parser
 from pyrogram.types import InlineQueryResult
 
 
 class InlineQueryResultAudio(InlineQueryResult):
     """Link to an audio.
     By default, this audio will be sent by the user with optional caption.
-    Alternatively, you can use *input_message_content* to send a message 
+    Alternatively, you can use *input_message_content* to send a message
     with the specified content instead of the audio.
     Parameters:
         audio_url (``str``):
@@ -41,7 +41,7 @@ class InlineQueryResultAudio(InlineQueryResult):
 
         mime_type (``str``):
             Mime type of the content of audio url, “text/html” or “audio/mp3”.
-        
+
         id (``str``, *optional*):
             Unique identifier for this result, 1-64 bytes.
             Defaults to a randomly generated UUID4.
@@ -70,10 +70,10 @@ class InlineQueryResultAudio(InlineQueryResult):
 
         caption_entities (List of :obj:`~pyrogram.types.MessageEntity`):
             List of special entities that appear in the caption, which can be specified instead of *parse_mode*.
-        
+
         reply_markup (:obj:`~pyrogram.types.InlineKeyboardMarkup`, *optional*):
             An InlineKeyboardMarkup object.
-        
+
         input_message_content (:obj:`~pyrogram.types.InputMessageContent`):
             Content of the message to be sent instead of the audio. This field is required if InlineQueryResultAudio is
             used to send an HTML-page as a result.
@@ -94,7 +94,7 @@ class InlineQueryResultAudio(InlineQueryResult):
         parse_mode: Optional[str] = object,
         caption_entities: List["types.MessageEntity"] = None,
         reply_markup: "types.InlineKeyboardMarkup" = None,
-        input_message_content: "types.InputMessageContent" = None
+        input_message_content: "types.InputMessageContent" = None,
     ):
         super().__init__("audio", id, input_message_content, reply_markup)
 
@@ -111,34 +111,36 @@ class InlineQueryResultAudio(InlineQueryResult):
         self.caption_entities = caption_entities
         self.reply_markup = reply_markup
         self.input_message_content = input_message_content
-        
-        if mime_type == "text/html" and input_message_content is None:
-            raise ValueError("input_message_content is required for audio with `text/html` mime type")
 
+        if mime_type == "text/html" and input_message_content is None:
+            raise ValueError(
+                "input_message_content is required for audio with `text/html` mime type"
+            )
 
     async def write(self, client: "pyrogram.Client"):
         audio = raw.types.InputWebDocument(
-            url=self.audio_url,
-            size=0,
-            mime_type=self.mime_type,
-            attributes=[]
+            url=self.audio_url, size=0, mime_type=self.mime_type, attributes=[]
         )
 
         thumb = raw.types.InputWebDocument(
             url=self.thumb_url,
             size=0,
             mime_type="image/jpeg",
-            attributes=[raw.types.DocumentAttributeAudio(
-                duration=self.duration,
-                voice=self.voice,
-                title=self.title,
-                performer=self.performer,
-            )]
+            attributes=[
+                raw.types.DocumentAttributeAudio(
+                    duration=self.duration,
+                    voice=self.voice,
+                    title=self.title,
+                    performer=self.performer,
+                )
+            ],
         )
 
-        message, entities = (await utils.parse_text_entities(
-            client, self.caption, self.parse_mode, self.caption_entities
-        )).values()
+        message, entities = (
+            await utils.parse_text_entities(
+                client, self.caption, self.parse_mode, self.caption_entities
+            )
+        ).values()
 
         return raw.types.InputBotInlineResult(
             id=self.id,
@@ -151,10 +153,13 @@ class InlineQueryResultAudio(InlineQueryResult):
                 await self.input_message_content.write(client, self.reply_markup)
                 if self.input_message_content
                 else raw.types.InputBotInlineMessageMediaAuto(
-                    reply_markup=await self.reply_markup.write(client) if self.reply_markup else None,
+                    reply_markup=await self.reply_markup.write(client)
+                    if self.reply_markup
+                    else None,
                     message=message,
-                    entities=entities)
-            )
+                    entities=entities,
+                )
+            ),
         )
 
 
@@ -162,16 +167,16 @@ class InlineQueryResultCachedAudio(InlineQueryResult):
     """Represents a link to an MP3 audio file stored on the Telegram servers.
 
     By default, this audio file will be sent by the user.
-    Alternatively, you can use input_message_content to send a message with the specified content instead of the audio.    
-    
+    Alternatively, you can use input_message_content to send a message with the specified content instead of the audio.
+
     Parameters:
         file_id (``str``):
             A valid file identifier for the audio file
-            
+
         id (``str``, *optional*):
             Unique identifier for this result, 1-64 bytes.
             Defaults to a randomly generated UUID4.
-            
+
         caption (``str``, *optional*):
             Caption, 0-1024 characters after entities parsing.
 
@@ -184,10 +189,10 @@ class InlineQueryResultCachedAudio(InlineQueryResult):
 
         caption_entities (List of :obj:`~pyrogram.types.MessageEntity`):
                 List of special entities that appear in the caption, which can be specified instead of *parse_mode*.
-            
+
         reply_markup (:obj:`~pyrogram.types.InlineKeyboardMarkup`, *optional*):
             Inline keyboard attached to the message.
-            
+
         input_message_content (:obj:`~pyrogram.types.InputMessageContent`):
             Content of the message to be sent.
     """
@@ -200,7 +205,7 @@ class InlineQueryResultCachedAudio(InlineQueryResult):
         parse_mode: Optional[str] = object,
         caption_entities: List["types.MessageEntity"] = None,
         reply_markup: "types.InlineKeyboardMarkup" = None,
-        input_message_content: "types.InputMessageContent" = None
+        input_message_content: "types.InputMessageContent" = None,
     ):
         super().__init__("audio", id, input_message_content, reply_markup)
 
@@ -211,13 +216,14 @@ class InlineQueryResultCachedAudio(InlineQueryResult):
         self.reply_markup = reply_markup
         self.input_message_content = input_message_content
 
-
     async def write(self, client: "pyrogram.Client"):
         audio = utils.get_input_media_from_file_id(self.file_id, FileType.AUDIO)
 
-        message, entities = (await utils.parse_text_entities(
-            client, self.caption, self.parse_mode, self.caption_entities
-        )).values()
+        message, entities = (
+            await utils.parse_text_entities(
+                client, self.caption, self.parse_mode, self.caption_entities
+            )
+        ).values()
         print(audio)
         return raw.types.InputBotInlineResultDocument(
             id=self.id,
@@ -227,9 +233,11 @@ class InlineQueryResultCachedAudio(InlineQueryResult):
                 await self.input_message_content.write(client, self.reply_markup)
                 if self.input_message_content
                 else raw.types.InputBotInlineMessageMediaAuto(
-                    reply_markup=await self.reply_markup.write(client) if self.reply_markup else None,
+                    reply_markup=await self.reply_markup.write(client)
+                    if self.reply_markup
+                    else None,
                     message=message,
-                    entities=entities
+                    entities=entities,
                 )
-            )
+            ),
         )
