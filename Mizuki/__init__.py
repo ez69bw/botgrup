@@ -89,6 +89,7 @@ if ENV:
     AI_API_KEY = os.environ.get("AI_API_KEY", None)
     SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT", None)
     SPAMWATCH_SUPPORT_CHAT = os.environ.get("SPAMWATCH_SUPPORT_CHAT", None)
+    DEF_WATER_MARK_FILE = ""
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API", None)
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
@@ -158,6 +159,7 @@ else:
     HEROKU_API_KEY = Config.HEROKU_API_KEY
     HEROKU_APP_NAME = Config.HEROKU_APP_NAME
     CHAT_BASE_TOKEN = os.environ.get("CHAT_BASE_TOKEN", "")
+    DEF_WATER_MARK_FILE = ""
     STRING_SESSION = Config.SESSION_NAME
     OPENWEATHERMAP_ID = Config.OPENWEATHERMAP_ID
 
