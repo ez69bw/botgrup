@@ -25,4 +25,4 @@ __help__ = """
  ⦁ `/torrent <query>`*:* search available torrents for your query.
 """
 
-__mod_name__ = "Exclusive"
+__mod_name__ = "々 Exclusive 々"
