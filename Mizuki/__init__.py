@@ -89,7 +89,7 @@ if ENV:
     AI_API_KEY = os.environ.get("AI_API_KEY", None)
     SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT", None)
     SPAMWATCH_SUPPORT_CHAT = os.environ.get("SPAMWATCH_SUPPORT_CHAT", None)
-    BOT_ID = int(os.environ.get("BOT_ID", None))
+    BOT_ID = int(os.environ.get("BOT_ID", "1688160577"))
     DEF_WATER_MARK_FILE = ""
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API", None)
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
