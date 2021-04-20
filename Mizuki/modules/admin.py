@@ -185,7 +185,7 @@ def refresh_admin(update, _):
     except KeyError:
         pass
 
-    update.effective_message.reply_text("⚡️ 𝙚𝙯𝙗𝙬 is active ⚡️")
+    update.effective_message.reply_text("⚡️ 𝙚𝙯𝙗𝙬 𝙞𝙨 𝙖𝙘𝙩𝙞𝙫𝙚 ⚡️")
 
 
 @run_async
