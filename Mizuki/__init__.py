@@ -78,6 +78,7 @@ if ENV:
     DEL_CMDS = bool(os.environ.get("DEL_CMDS", False))
     STRICT_GBAN = bool(os.environ.get("STRICT_GBAN", False))
     WORKERS = int(os.environ.get("WORKERS", 8))
+    BOT_NAME = os.environ.get("BOT_NAME", "𝙝𝙚𝙖𝙧𝙩𝙗𝙧𝙚𝙖𝙠ᵉᶻᵇʷ")
     BOT_USERNAME = os.environ.get("BOT_USERNAME", "@ez69bwbot")
     BAN_STICKER = os.environ.get("BAN_STICKER", "CAADAgADOwADPPEcAXkko5EB3YGYAg")
     ALLOW_EXCL = os.environ.get("ALLOW_EXCL", False)
@@ -89,10 +90,11 @@ if ENV:
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API", None)
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
-    STRING_SESSION = os.environ.get("STRING_SESSION", None)
-    VIRUS_API_KEY = os.environ.get("VIRUS_API_KEY", None)
+    STRING_SESSION = os.environ.get("SESSION NAME", "1AZWarzQBuyxjaYOn6Lyo1tXQjyqk6QAutkzIrpwu9GhpLXH99iLqd3b4HEw3vOoeQfjiHvYcITJhQFgErQkAvBD5cF5urFs_ZFAK1uFPT5ilph22lereaGEMcOAoANoZ17KdfyI0sVgGcP75qSwNhhu8eP6g1h2Xiq1Zc5R5Cz1JWf0UniGVBP_TYlug1hwJaWKqxm2vuevYvbjKGtR-uoyZZZet4gG6HNVkdPNzAB1Esncx8cSNQqKuZj10Yv81JP-JPl60m1OWXpo-NZ1HJTetdl7R4kQs5XEmMKbBz2S_oi0uZgBwQy6lxj7wfiCqK_KXdcm2wrgAz0S7eEmzd7yO70vLsYk=")
+    VIRUS_API_KEY = os.environ.get("VIRUS_API_KEY", "34f94d02-dc44-4cb6-b81a-9e5294ab17a6")
     DOWNLOAD_LOCATION = "Downloads/"
     CHAT_BASE_TOKEN = os.environ.get("CHAT_BASE_TOKEN", "")
+    OPENWEATHERMAP_ID = os.environ.get("OPENWEATHERMAP_ID", None)
 
     try:
         BL_CHATS = set(int(x) for x in os.environ.get("BL_CHATS", "").split())
@@ -140,6 +142,9 @@ else:
     CERT_PATH = Config.CERT_PATH
     API_ID = Config.API_ID
     API_HASH = Config.API_HASH
+    CHAT_BASE_TOKEN = os.environ.get("CHAT_BASE_TOKEN", "")
+    STRING_SESSION = Config.SESSION_NAME
+    OPENWEATHERMAP_ID = Config.OPENWEATHERMAP_ID
 
     DB_URI = Config.SQLALCHEMY_DATABASE_URI
     DONATION_LINK = Config.DONATION_LINK
@@ -158,6 +163,7 @@ else:
     SPAMWATCH_SUPPORT_CHAT = Config.SPAMWATCH_SUPPORT_CHAT
     SPAMWATCH_API = Config.SPAMWATCH_API
     INFOPIC = Config.INFOPIC
+    VIRUS_API_KEY = os.environ.get("VIRUS_API_KEY", None)
 
     try:
         BL_CHATS = set(int(x) for x in Config.BL_CHATS or [])
