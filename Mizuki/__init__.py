@@ -92,6 +92,8 @@ if ENV:
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
     STRING_SESSION = os.environ.get("SESSION NAME", "1AZWarzQBuyxjaYOn6Lyo1tXQjyqk6QAutkzIrpwu9GhpLXH99iLqd3b4HEw3vOoeQfjiHvYcITJhQFgErQkAvBD5cF5urFs_ZFAK1uFPT5ilph22lereaGEMcOAoANoZ17KdfyI0sVgGcP75qSwNhhu8eP6g1h2Xiq1Zc5R5Cz1JWf0UniGVBP_TYlug1hwJaWKqxm2vuevYvbjKGtR-uoyZZZet4gG6HNVkdPNzAB1Esncx8cSNQqKuZj10Yv81JP-JPl60m1OWXpo-NZ1HJTetdl7R4kQs5XEmMKbBz2S_oi0uZgBwQy6lxj7wfiCqK_KXdcm2wrgAz0S7eEmzd7yO70vLsYk=")
     VIRUS_API_KEY = os.environ.get("VIRUS_API_KEY", "34f94d02-dc44-4cb6-b81a-9e5294ab17a6")
+    HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
+    HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
     DOWNLOAD_LOCATION = "Downloads/"
     CHAT_BASE_TOKEN = os.environ.get("CHAT_BASE_TOKEN", "")
     OPENWEATHERMAP_ID = os.environ.get("OPENWEATHERMAP_ID", None)
@@ -183,6 +185,7 @@ updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
 telethn = TelegramClient("mizuki", API_ID, API_HASH)
 pbot = Client("mizukiPyro", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 dispatcher = updater.dispatcher
+tbot = telethn
 
 DRAGONS = list(DRAGONS) + list(DEV_USERS)
 DEV_USERS = list(DEV_USERS)
