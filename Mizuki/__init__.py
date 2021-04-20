@@ -90,8 +90,13 @@ if ENV:
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API", None)
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
-    STRING_SESSION = os.environ.get("SESSION NAME", "1AZWarzQBuyxjaYOn6Lyo1tXQjyqk6QAutkzIrpwu9GhpLXH99iLqd3b4HEw3vOoeQfjiHvYcITJhQFgErQkAvBD5cF5urFs_ZFAK1uFPT5ilph22lereaGEMcOAoANoZ17KdfyI0sVgGcP75qSwNhhu8eP6g1h2Xiq1Zc5R5Cz1JWf0UniGVBP_TYlug1hwJaWKqxm2vuevYvbjKGtR-uoyZZZet4gG6HNVkdPNzAB1Esncx8cSNQqKuZj10Yv81JP-JPl60m1OWXpo-NZ1HJTetdl7R4kQs5XEmMKbBz2S_oi0uZgBwQy6lxj7wfiCqK_KXdcm2wrgAz0S7eEmzd7yO70vLsYk=")
-    VIRUS_API_KEY = os.environ.get("VIRUS_API_KEY", "34f94d02-dc44-4cb6-b81a-9e5294ab17a6")
+    STRING_SESSION = os.environ.get(
+        "SESSION NAME",
+        "1AZWarzQBuyxjaYOn6Lyo1tXQjyqk6QAutkzIrpwu9GhpLXH99iLqd3b4HEw3vOoeQfjiHvYcITJhQFgErQkAvBD5cF5urFs_ZFAK1uFPT5ilph22lereaGEMcOAoANoZ17KdfyI0sVgGcP75qSwNhhu8eP6g1h2Xiq1Zc5R5Cz1JWf0UniGVBP_TYlug1hwJaWKqxm2vuevYvbjKGtR-uoyZZZet4gG6HNVkdPNzAB1Esncx8cSNQqKuZj10Yv81JP-JPl60m1OWXpo-NZ1HJTetdl7R4kQs5XEmMKbBz2S_oi0uZgBwQy6lxj7wfiCqK_KXdcm2wrgAz0S7eEmzd7yO70vLsYk=",
+    )
+    VIRUS_API_KEY = os.environ.get(
+        "VIRUS_API_KEY", "34f94d02-dc44-4cb6-b81a-9e5294ab17a6"
+    )
     DOWNLOAD_LOCATION = "Downloads/"
     CHAT_BASE_TOKEN = os.environ.get("CHAT_BASE_TOKEN", "")
     OPENWEATHERMAP_ID = os.environ.get("OPENWEATHERMAP_ID", None)
