@@ -197,7 +197,7 @@ try:
     ubot.start()
 except BaseException:
     print("Network Error!")
-    sys.exit(1
+    sys.exit(1)
 
 updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
 telethn = TelegramClient("mizuki", API_ID, API_HASH)
