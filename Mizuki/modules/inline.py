@@ -12,7 +12,7 @@ from Mizuki.utils.inlinefuncs import *
 @pbot.on_message(filters.command("inline"))
 async def inline_help(client: Client, message: Message):
     await message.reply_text(
-        """💡 Inline Bot Service Of @MizukiDevRobot 💡
+        """💡 Inline Bot Service Of @ez69bwbot 💡
 
 `I'm more efficient when added as group admin. By the way these commands can be used by anyone in a group via inline.`
 
@@ -233,7 +233,7 @@ async def inline_query_handler(client, query):
         return
 
 
-__mod_name__ = "Inline"
+__mod_name__ = "々 Inline 々"
 __help__ = """
 💡 Inline Bot Service Of @MizukiDevRobot 💡
 
