@@ -10,4 +10,4 @@ Do your works at time, don't late.
 Please turn on notifications(PM/Group Chat) otherwise you will not get notification for the alarm!
 """
 
-__mod_name__ = "Alarm"
+__mod_name__ = "々 Alarm 々"
