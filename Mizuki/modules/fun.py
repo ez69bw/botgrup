@@ -296,6 +296,7 @@ def weebify(update: Update, context: CallbackContext):
     else:
         message.reply_text(string)
 
+
 boldfont = [
     "𝗮",
     "𝗯",
@@ -351,8 +352,8 @@ def bold(update: Update, context: CallbackContext):
         message.reply_to_message.reply_text(string)
     else:
         message.reply_text(string)
-        
- 
+
+
 medievalbold = [
     "𝖆",
     "𝖇",
