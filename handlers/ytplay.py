@@ -1,22 +1,14 @@
-import os
-from os import path
 import requests
-import aiohttp
-import youtube_dl
-from Mizuki import Client
-from pyrogram.types import Message, Voice
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from youtube_search import YoutubeSearch
-from callsmusic import callsmusic, queues
 
 import converter
+from callsmusic import callsmusic, queues
 from downloaders import youtube
-
-from config import BOT_NAME as bn, DURATION_LIMIT
+from helpers.decorators import authorized_users_only, errors
 from helpers.filters import command, other_filters
-from helpers.decorators import errors, authorized_users_only
-from helpers.errors import DurationLimitError
-from helpers.gets import get_url, get_file_name
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from Mizuki import Client
+
 
 @Client.on_message(command("yt") & other_filters)
 @errors
@@ -24,32 +16,31 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 async def play(_, message: Message):
 
     lel = await message.reply("🔥 **Menemukan Lagu**...")
-    sender_id = message.from_user.id
+    message.from_user.id
     user_id = message.from_user.id
-    sender_name = message.from_user.first_name
+    message.from_user.first_name
     user_name = message.from_user.first_name
-    rpk = "["+user_name+"](tg://user?id="+str(user_id)+")"
+    rpk = "[" + user_name + "](tg://user?id=" + str(user_id) + ")"
 
-    query = ''
+    query = ""
     for i in message.command[1:]:
-        query += ' ' + str(i)
+        query += " " + str(i)
     print(query)
     await lel.edit("🌈 **Memproses Lagu**...")
     ydl_opts = {"format": "bestaudio[ext=m4a]"}
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
         url = f"https://youtube.com{results[0]['url_suffix']}"
-        #print(results)
-        title = results[0]["title"][:40]       
+        # print(results)
+        title = results[0]["title"][:40]
         thumbnail = results[0]["thumbnails"][0]
-        thumb_name = f'thumb{title}.jpg'
+        thumb_name = f"thumb{title}.jpg"
         thumb = requests.get(thumbnail, allow_redirects=True)
-        open(thumb_name, 'wb').write(thumb.content)
+        open(thumb_name, "wb").write(thumb.content)
 
-
-        duration = results[0]["duration"]
-        url_suffix = results[0]["url_suffix"]
-        views = results[0]["views"]
+        results[0]["duration"]
+        results[0]["url_suffix"]
+        results[0]["views"]
 
     except Exception as e:
         lel.edit(
@@ -59,40 +50,32 @@ async def play(_, message: Message):
         return
 
     keyboard = InlineKeyboardMarkup(
+        [
+            [InlineKeyboardButton(text="🖥 Tonton Di YouTube", url=f"{url}")],
             [
-                [
-                    InlineKeyboardButton(
-                        text="🖥 Tonton Di YouTube",
-                        url=f"{url}")
-                   
-                ],
-                [
-                    InlineKeyboardButton(
-                        text="join me if you're sad",
-                        url="https://t.me/hbreakclub")
-                   
-                ]
-            ]
-        )
+                InlineKeyboardButton(
+                    text="join me if you're sad", url="https://t.me/hbreakclub"
+                )
+            ],
+        ]
+    )
 
     keyboard2 = InlineKeyboardMarkup(
+        [
+            [InlineKeyboardButton(text="🖥 Tonton Di YouTube", url=f"{url}")],
             [
-                [
-                    InlineKeyboardButton(
-                        text="🖥 Tonton Di YouTube",
-                        url=f"{url}")
-                   
-                ],
-                [
-                    InlineKeyboardButton(
-                        text="join me if you're sad",
-                        url="https://t.me/hbreakclub")
-                   
-                ]
-            ]
-        )
+                InlineKeyboardButton(
+                    text="join me if you're sad", url="https://t.me/hbreakclub"
+                )
+            ],
+        ]
+    )
 
-    audio = (message.reply_to_message.audio or message.reply_to_message.voice) if message.reply_to_message else None
+    audio = (
+        (message.reply_to_message.audio or message.reply_to_message.voice)
+        if message.reply_to_message
+        else None
+    )
 
     if audio:
         await lel.edit_text("Lel")
@@ -105,22 +88,19 @@ async def play(_, message: Message):
     if message.chat.id in callsmusic.pytgcalls.active_calls:
         position = await queues.put(message.chat.id, file=file_path)
         await message.reply_photo(
-        photo=thumb_name, 
-        caption=f"🎧 **Song:** [{title}]({url}) \n"
-                f"⚡ **Antrian ke:** {position} \n"
-                 "📱 **Requested by:** {}".format(
-        message.from_user.mention()
-        ),
-        reply_markup=keyboard2)
+            photo=thumb_name,
+            caption=f"🎧 **Song:** [{title}]({url}) \n"
+            f"⚡ **Antrian ke:** {position} \n"
+            "📱 **Requested by:** {}".format(message.from_user.mention()),
+            reply_markup=keyboard2,
+        )
         return await lel.delete()
     else:
         callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
         await message.reply_photo(
-        photo=thumb_name,
-        reply_markup=keyboard,
-        caption=f"⚡ **Song:** [{title}]({url}).\n"
-                 "📱 **Requested by**: {}".format(
-        message.from_user.mention()
-        ),
-    )
+            photo=thumb_name,
+            reply_markup=keyboard,
+            caption=f"⚡ **Song:** [{title}]({url}).\n"
+            "📱 **Requested by**: {}".format(message.from_user.mention()),
+        )
         return await lel.delete()
