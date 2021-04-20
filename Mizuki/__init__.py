@@ -104,6 +104,9 @@ if ENV:
     DOWNLOAD_LOCATION = "Downloads/"
     CHAT_BASE_TOKEN = os.environ.get("CHAT_BASE_TOKEN", "")
     OPENWEATHERMAP_ID = os.environ.get("OPENWEATHERMAP_ID", None)
+    UPSTREAM_REPO = os.environ.get(
+        "UPSTREAM_REPO", "https://github.com/ez69bw/ezbwGroup"
+    )
 
     try:
         BL_CHATS = set(int(x) for x in os.environ.get("BL_CHATS", "").split())
@@ -149,6 +152,7 @@ else:
     URL = Config.URL
     PORT = Config.PORT
     CERT_PATH = Config.CERT_PATH
+    UPSTREAM_REPO = Config.UPSTREAM_REPO
     API_ID = Config.API_ID
     API_HASH = Config.API_HASH
     HEROKU_API_KEY = Config.HEROKU_API_KEY
