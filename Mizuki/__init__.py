@@ -9,7 +9,6 @@ from pyrogram import Client, errors
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 
-
 CMD_LIST = {}
 CMD_HELP = {}
 LOAD_PLUG = {}
