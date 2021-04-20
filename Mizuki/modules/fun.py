@@ -296,6 +296,119 @@ def weebify(update: Update, context: CallbackContext):
     else:
         message.reply_text(string)
 
+boldfont = [
+    "𝗮",
+    "𝗯",
+    "𝗰",
+    "𝗱",
+    "𝗲",
+    "𝗳",
+    "𝗴",
+    "𝗵",
+    "𝗶",
+    "𝗷",
+    "𝗸",
+    "𝗹",
+    "𝗺",
+    "𝗻",
+    "𝗼",
+    "𝗽",
+    "𝗾",
+    "𝗿",
+    "𝘀",
+    "𝘁",
+    "𝘂",
+    "𝘃",
+    "𝘄",
+    "𝘅",
+    "𝘆",
+    "𝘇",
+]
+
+
+@run_async
+def bold(update: Update, context: CallbackContext):
+    args = context.args
+    message = update.effective_message
+    string = ""
+
+    if message.reply_to_message:
+        string = message.reply_to_message.text.lower().replace(" ", "  ")
+
+    if args:
+        string = "  ".join(args).lower()
+
+    if not string:
+        message.reply_text("Usage is `/bold <text>`", parse_mode=ParseMode.MARKDOWN)
+        return
+
+    for normiecharacter in string:
+        if normiecharacter in normiefont:
+            boldcharacter = boldfont[normiefont.index(normiecharacter)]
+            string = string.replace(normiecharacter, boldcharacter)
+
+    if message.reply_to_message:
+        message.reply_to_message.reply_text(string)
+    else:
+        message.reply_text(string)
+        
+ 
+medievalbold = [
+    "𝖆",
+    "𝖇",
+    "𝖈",
+    "𝖉",
+    "𝖊",
+    "𝖋",
+    "𝖌",
+    "𝖍",
+    "𝖎",
+    "𝖏",
+    "𝖐",
+    "𝖑",
+    "𝖒",
+    "𝖓",
+    "𝖔",
+    "𝖕",
+    "𝖖",
+    "𝖗",
+    "𝖘",
+    "𝖙",
+    "𝖚",
+    "𝖛",
+    "𝖜",
+    "𝖝",
+    "𝖞",
+    "𝖟",
+]
+
+
+@run_async
+def medival(update: Update, context: CallbackContext):
+    args = context.args
+    message = update.effective_message
+    string = ""
+
+    if message.reply_to_message:
+        string = message.reply_to_message.text.lower().replace(" ", "  ")
+
+    if args:
+        string = "  ".join(args).lower()
+
+    if not string:
+        message.reply_text("Usage is `/medi <text>`", parse_mode=ParseMode.MARKDOWN)
+        return
+
+    for normiecharacter in string:
+        if normiecharacter in normiefont:
+            medivalcharacter = medivalbold[normiefont.index(normiecharacter)]
+            string = string.replace(normiecharacter, medivalcharacter)
+
+    if message.reply_to_message:
+        message.reply_to_message.reply_text(string)
+    else:
+        message.reply_text(string)
+
 
 __help__ = """
  • `/runs`*:* reply a random string from an array of replies
@@ -310,6 +423,8 @@ __help__ = """
  • `/shout <keyword>`*:* write anything you want to give loud shout
  • `/send <text>`*:* sends the text you given to the group by Mizuki
  • `/weebify <text>`*:* returns a weebified text
+ • `/bold <text>`*:* returns a bolded text
+ • `/medi <text>`*:* returns a medivaled text
  • `/sanitize`*:* always use this before `/pat` or any contact
  • `/pat`*:* pats a user, or get patted
  • `/truth`*:* for random truth
@@ -329,8 +444,12 @@ DECIDE_HANDLER = DisableAbleCommandHandler("decide", decide)
 TABLE_HANDLER = DisableAbleCommandHandler("table", table)
 SHOUT_HANDLER = DisableAbleCommandHandler("shout", shout)
 WEEBIFY_HANDLER = DisableAbleCommandHandler("weebify", weebify)
+BOLD_HANDLER = DisableAbleCommandHandler("bold", bold)
+MEDIVAL_HANDLER = DisableAbleCommandHandler("medi", medival)
 
 dispatcher.add_handler(WEEBIFY_HANDLER)
+dispatcher.add_handler(BOLD_HANDLER)
+dispatcher.add_handler(MEDIVAL_HANDLER)
 dispatcher.add_handler(SHOUT_HANDLER)
 dispatcher.add_handler(SANITIZE_HANDLER)
 dispatcher.add_handler(RUNS_HANDLER)
@@ -359,6 +478,8 @@ __command_list__ = [
     "sanitize",
     "shout",
     "weebify",
+    "bold",
+    "medi",
 ]
 __handlers__ = [
     RUNS_HANDLER,
@@ -374,4 +495,6 @@ __handlers__ = [
     SANITIZE_HANDLER,
     SHOUT_HANDLER,
     WEEBIFY_HANDLER,
+    BOLD_HANDLER,
+    MEDIVAL_HANDLER,
 ]
