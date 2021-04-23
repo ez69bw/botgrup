@@ -74,7 +74,6 @@ def send_rules(update, chat_id, from_pm=False):
         )
 
 
-
 @run_async
 def get_rules2(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
@@ -130,7 +129,7 @@ def send_rules2(update, chat_id, from_pm=True):
             "This probably doesn't mean it's lawless though...!"
         )
 
- 
+
 @run_async
 @user_admin
 def set_rules(update: Update, context: CallbackContext):
