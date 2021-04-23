@@ -22,6 +22,7 @@ from Mizuki.modules.helper_funcs.string_handling import markdown_parser
 def get_rules(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     send_rules(update, chat_id)
+    send_rules2(update, chat_id)
 
 
 # Do not async - not from a handler
@@ -72,12 +73,6 @@ def send_rules(update, chat_id, from_pm=False):
             "The group admins haven't set any rules for this chat yet. "
             "This probably doesn't mean it's lawless though...!"
         )
-
-
-@run_async
-def get_rules2(update: Update, context: CallbackContext):
-    chat_id = update.effective_chat.id
-    send_rules2(update, chat_id)
 
 
 # Do not async - not from a handler
