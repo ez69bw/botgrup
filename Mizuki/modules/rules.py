@@ -75,56 +75,6 @@ def send_rules(update, chat_id, from_pm=False):
         )
 
 
-# Do not async - not from a handler
-def send_rules2(update, chat_id, from_pm=True):
-    bot = dispatcher.bot
-    user = update.effective_user  # type: Optional[User]
-    try:
-        chat = bot.get_chat(chat_id)
-    except BadRequest as excp:
-        if excp.message == "Chat not found" and from_pm:
-            bot.send_message(
-                user.id,
-                "The rules shortcut for this chat hasn't been set properly! Ask admins to "
-                "fix this.",
-            )
-            return
-        else:
-            raise
-
-    rules = sql.get_rules(chat_id)
-    text = f"The rules for *{escape_markdown(chat.title)}* are:\n\n{rules}"
-
-    if from_pm and rules:
-        bot.send_message(
-            user.id, text, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True
-        )
-    elif from_pm:
-        bot.send_message(
-            user.id,
-            "The group admins haven't set any rules for this chat yet. "
-            "This probably doesn't mean it's lawless though...!",
-        )
-    elif rules:
-        update.effective_message.reply_text(
-            "Kalo tulisannya kotak-kotak adudu, klik aja yang ada dibawah.",
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            text="Rules", url=f"t.me/{bot.username}?start={chat_id}"
-                        )
-                    ]
-                ]
-            ),
-        )
-    else:
-        update.effective_message.reply_text(
-            "The group admins haven't set any rules for this chat yet. "
-            "This probably doesn't mean it's lawless though...!"
-        )
-
-
 @run_async
 @user_admin
 def set_rules(update: Update, context: CallbackContext):
