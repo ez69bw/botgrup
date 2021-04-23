@@ -28,7 +28,6 @@ def get_rules(update: Update, context: CallbackContext):
 def send_rules(update, chat_id, from_pm=False):
     bot = dispatcher.bot
     user = update.effective_user  # type: Optional[User]
-    reply_msg = update.message.reply_to_message
     try:
         chat = bot.get_chat(chat_id)
     except BadRequest as excp:
@@ -36,7 +35,7 @@ def send_rules(update, chat_id, from_pm=False):
             bot.send_message(
                 user.id,
                 "The rules shortcut for this chat hasn't been set properly! Ask admins to "
-                "fix this.\nMaybe they forgot the hyphen in ID",
+                "fix this.",
             )
             return
         else:
@@ -55,27 +54,14 @@ def send_rules(update, chat_id, from_pm=False):
             "The group admins haven't set any rules for this chat yet. "
             "This probably doesn't mean it's lawless though...!",
         )
-    elif rules and reply_msg:
-        reply_msg.reply_text(
-            "Kalo rulesnya kotak-kotak adudu, klik aja yang ada dibawah.",
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            text="Rules", url=f"t.me/{bot.username}?start={chat_id}"
-                        )
-                    ]
-                ]
-            ),
-        )
     elif rules:
         update.effective_message.reply_text(
-            "Lalo rulesnya kotak-kotak adudu, klik aja yang ada dibawah.",
+            "Kalo tulisannya kotak-kotak adudu, klik aja yang ada dibawah.",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton(
-                            text="Rules", url=f"t.me/{bot.username}?start={chat_id}"
+                            text="Rules", url="https://t.me/yodahjoinaje/91839"
                         )
                     ]
                 ]
@@ -88,6 +74,7 @@ def send_rules(update, chat_id, from_pm=False):
         )
 
 
+@run_async
 @user_admin
 def set_rules(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
@@ -105,6 +92,7 @@ def set_rules(update: Update, context: CallbackContext):
         update.effective_message.reply_text("Successfully set rules for this group.")
 
 
+@run_async
 @user_admin
 def clear_rules(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
@@ -113,7 +101,7 @@ def clear_rules(update: Update, context: CallbackContext):
 
 
 def __stats__():
-    return f"• {sql.num_chats()} chats have rules set."
+    return f"{sql.num_chats()} chats have rules set."
 
 
 def __import_data__(chat_id, data):
@@ -140,15 +128,9 @@ __help__ = """
 
 __mod_name__ = "々 Rules 々"
 
-GET_RULES_HANDLER = CommandHandler(
-    "rules", get_rules, filters=Filters.group, run_async=True
-)
-SET_RULES_HANDLER = CommandHandler(
-    "setrules", set_rules, filters=Filters.group, run_async=True
-)
-RESET_RULES_HANDLER = CommandHandler(
-    "clearrules", clear_rules, filters=Filters.group, run_async=True
-)
+GET_RULES_HANDLER = CommandHandler("rules", get_rules, filters=Filters.group)
+SET_RULES_HANDLER = CommandHandler("setrules", set_rules, filters=Filters.group)
+RESET_RULES_HANDLER = CommandHandler("clearrules", clear_rules, filters=Filters.group)
 
 dispatcher.add_handler(GET_RULES_HANDLER)
 dispatcher.add_handler(SET_RULES_HANDLER)
