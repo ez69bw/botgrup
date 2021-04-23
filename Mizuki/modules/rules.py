@@ -25,7 +25,7 @@ def get_rules(update: Update, context: CallbackContext):
 
 
 # Do not async - not from a handler
-def send_rules(update, chat_id, from_pm=False):
+def send_rules(update, chat_id, from_pm=True):
     bot = dispatcher.bot
     user = update.effective_user  # type: Optional[User]
     try:
@@ -61,7 +61,7 @@ def send_rules(update, chat_id, from_pm=False):
                 [
                     [
                         InlineKeyboardButton(
-                            text="Rules", url="https://t.me/yodahjoinaje/91839"
+                            text="Rules", url="t.me/{bot.username}?start={chat_id}"
                         )
                     ]
                 ]
