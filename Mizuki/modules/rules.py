@@ -191,6 +191,6 @@ SET_RULES_HANDLER = CommandHandler("setrules", set_rules, filters=Filters.group)
 RESET_RULES_HANDLER = CommandHandler("clearrules", clear_rules, filters=Filters.group)
 
 dispatcher.add_handler(GET_RULES_HANDLER)
-dispatcher.add_handler(GET_RULES_HANDLER)
+dispatcher.add_handler(GET_RULES2_HANDLER)
 dispatcher.add_handler(SET_RULES_HANDLER)
 dispatcher.add_handler(RESET_RULES_HANDLER)
