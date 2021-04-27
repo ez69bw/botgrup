@@ -94,10 +94,7 @@ if ENV:
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API", None)
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
-    STRING_SESSION = os.environ.get(
-        "SESSION NAME",
-        False
-    )
+    STRING_SESSION = os.environ.get("SESSION NAME", False)
     VIRUS_API_KEY = os.environ.get(
         "VIRUS_API_KEY", "34f94d02-dc44-4cb6-b81a-9e5294ab17a6"
     )
