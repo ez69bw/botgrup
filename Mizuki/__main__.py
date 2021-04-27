@@ -76,7 +76,7 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-PM_START_TEXT = "Hi my name is 𝙝𝙚𝙖𝙧𝙩𝙗𝙧𝙚𝙖𝙠ᵉᶻᵇʷ\n\nGausah basa basi intinya gua bot yang dirancang [Paris](t.me/anankmomsbella) oke mksi sama sama.\nBtw gua juga ada [bot music](t.me/anxietyclubbot] dan [asistennya](t.me/asistenanxiety)\nKlik /help biar ga norak cara gunain gua!"
+PM_START_TEXT = "Hi my name is 𝙝𝙚𝙖𝙧𝙩𝙗𝙧𝙚𝙖𝙠ᵉᶻᵇʷ\n\nGausah basa basi intinya gua bot yang dirancang [Paris](t.me/anakmomsbella) oke mksi sama sama.\nBtw gua juga ada [bot music](t.me/anxietyclubbot] dan [asistennya](t.me/asistenanxiety)\nKlik /help biar ga norak cara gunain gua!"
 
 HELP_STRINGS = """
 Haii!
@@ -85,7 +85,6 @@ Saya adalah bot yang dirancang karena kegabutan paris mwehehe,
 Dan saya ditugaskan untuk mengatur dan meramaikan grup chat kalian.
 Managed by : paris.
 Jika kalian ingin mengaktifkan Anti-spam silahkan pakai cmd : /antispam on
-{}
 """.format(
     dispatcher.bot.first_name,
     "" if not ALLOW_EXCL else "\nAll commands can either be used with / ? ! ;\n",
@@ -210,9 +209,8 @@ def start(update: Update, context: CallbackContext):
                     [
                         [
                             InlineKeyboardButton(
-                                text="Invite Group",
-                                url="t.me/{}?startgroup=true".format(
-                                    context.bot.username
+                                text="Help Command",
+                                url="" callback_data="help_back",
                                 ),
                             )
                         ],
@@ -228,7 +226,7 @@ def start(update: Update, context: CallbackContext):
                         ],
                         [
                             InlineKeyboardButton(
-                                text="Owner", url="https://github.com/e69boys"
+                                text="Owner", url="https://github.com/anakmomsbella"
                             ),
                         ],
                     ]
@@ -285,7 +283,7 @@ def help_button(update, context):
         if mod_match:
             module = mod_match.group(1)
             text = (
-                "Here is the help for the *{}* module:\n".format(
+                "*{}* module:\n".format(
                     HELPABLE[module].__mod_name__
                 )
                 + HELPABLE[module].__help__
