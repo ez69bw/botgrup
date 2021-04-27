@@ -23,7 +23,7 @@
          "required": true
       },
       "API_ID": {
-         "description": "Get API_ID from my.telegram.org, used for telethon based modules."
+         "description": "Get API_ID from my.telegram.org, used for telethon based modules.",
          "required": false,
          "value": ""
       },
