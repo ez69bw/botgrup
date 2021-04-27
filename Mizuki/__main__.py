@@ -76,11 +76,11 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-PM_START_TEXT = "Hi my name is 𝙝𝙚𝙖𝙧𝙩𝙗𝙧𝙚𝙖𝙠ᵉᶻᵇʷ\n\nGausah basa basi intinya gua bot yang dirancang [Paris](t.me/anakmomsbella) oke mksi sama sama.\nBtw gua juga ada [bot music](t.me/anxietyclubbot] dan [asistennya](t.me/asistenanxiety)\nKlik /help biar ga norak cara gunain gua!"
+PM_START_TEXT = "Hi my name is {}\n\nGausah basa basi intinya gua bot yang dirancang [Paris](t.me/anakmomsbella) oke mksi sama sama.\nBtw gua juga ada [bot music](t.me/anxietyclubbot] dan [asistennya](t.me/asistenanxiety)\nKlik /help biar ga norak cara gunain gua!"
 
 HELP_STRINGS = """
 Haii!
-nama saya 𝙝𝙚𝙖𝙧𝙩𝙗𝙧𝙚𝙖𝙠ᵉᶻᵇʷ
+nama saya {}
 Saya adalah bot yang dirancang karena kegabutan paris mwehehe,
 Dan saya ditugaskan untuk mengatur dan meramaikan grup chat kalian.
 Managed by : paris.
