@@ -210,7 +210,8 @@ def start(update: Update, context: CallbackContext):
                         [
                             InlineKeyboardButton(
                                 text="Help Command",
-                                url="" callback_data="help_back",
+                                url="t.me/{}?start=ghelp_{}".format(
+                                    context.bot.username, module
                                 ),
                             )
                         ],
