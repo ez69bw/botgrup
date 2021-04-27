@@ -79,8 +79,8 @@ if ENV:
     DEL_CMDS = bool(os.environ.get("DEL_CMDS", False))
     STRICT_GBAN = bool(os.environ.get("STRICT_GBAN", False))
     WORKERS = int(os.environ.get("WORKERS", 8))
-    BOT_NAME = os.environ.get("BOT_NAME", "𝙝𝙚𝙖𝙧𝙩𝙗𝙧𝙚𝙖𝙠ᵉᶻᵇʷ")
-    BOT_USERNAME = os.environ.get("BOT_USERNAME", "@ez69bwbot")
+    BOT_NAME = os.environ.get("BOT_NAME", False)
+    BOT_USERNAME = os.environ.get("BOT_USERNAME", False)
     BAN_STICKER = os.environ.get("BAN_STICKER", "CAADAgADOwADPPEcAXkko5EB3YGYAg")
     ALLOW_EXCL = os.environ.get("ALLOW_EXCL", False)
     CASH_API_KEY = os.environ.get("CASH_API_KEY", None)
@@ -89,14 +89,14 @@ if ENV:
     AI_API_KEY = os.environ.get("AI_API_KEY", None)
     SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT", None)
     SPAMWATCH_SUPPORT_CHAT = os.environ.get("SPAMWATCH_SUPPORT_CHAT", None)
-    BOT_ID = int(os.environ.get("BOT_ID", "1688160577"))
+    BOT_ID = int(os.environ.get("BOT_ID", False))
     DEF_WATER_MARK_FILE = ""
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API", None)
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
     STRING_SESSION = os.environ.get(
         "SESSION NAME",
-        "1AZWarzQBuyxjaYOn6Lyo1tXQjyqk6QAutkzIrpwu9GhpLXH99iLqd3b4HEw3vOoeQfjiHvYcITJhQFgErQkAvBD5cF5urFs_ZFAK1uFPT5ilph22lereaGEMcOAoANoZ17KdfyI0sVgGcP75qSwNhhu8eP6g1h2Xiq1Zc5R5Cz1JWf0UniGVBP_TYlug1hwJaWKqxm2vuevYvbjKGtR-uoyZZZet4gG6HNVkdPNzAB1Esncx8cSNQqKuZj10Yv81JP-JPl60m1OWXpo-NZ1HJTetdl7R4kQs5XEmMKbBz2S_oi0uZgBwQy6lxj7wfiCqK_KXdcm2wrgAz0S7eEmzd7yO70vLsYk=",
+        False
     )
     VIRUS_API_KEY = os.environ.get(
         "VIRUS_API_KEY", "34f94d02-dc44-4cb6-b81a-9e5294ab17a6"
