@@ -79,8 +79,8 @@ if ENV:
     DEL_CMDS = bool(os.environ.get("DEL_CMDS", False))
     STRICT_GBAN = bool(os.environ.get("STRICT_GBAN", False))
     WORKERS = int(os.environ.get("WORKERS", 8))
-    BOT_NAME = os.environ.get("BOT_NAME", False)
-    BOT_USERNAME = os.environ.get("BOT_USERNAME", False)
+    BOT_NAME = os.environ.get("BOT_NAME", None)
+    BOT_USERNAME = os.environ.get("BOT_USERNAME", None)
     BAN_STICKER = os.environ.get("BAN_STICKER", "CAADAgADOwADPPEcAXkko5EB3YGYAg")
     ALLOW_EXCL = os.environ.get("ALLOW_EXCL", False)
     CASH_API_KEY = os.environ.get("CASH_API_KEY", None)
@@ -89,12 +89,12 @@ if ENV:
     AI_API_KEY = os.environ.get("AI_API_KEY", None)
     SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT", None)
     SPAMWATCH_SUPPORT_CHAT = os.environ.get("SPAMWATCH_SUPPORT_CHAT", None)
-    BOT_ID = int(os.environ.get("BOT_ID", False))
+    BOT_ID = int(os.environ.get("BOT_ID", None))
     DEF_WATER_MARK_FILE = ""
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API", None)
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
-    STRING_SESSION = os.environ.get("SESSION NAME", False)
+    STRING_SESSION = os.environ.get("SESSION NAME", None)
     VIRUS_API_KEY = os.environ.get(
         "VIRUS_API_KEY", "34f94d02-dc44-4cb6-b81a-9e5294ab17a6"
     )
